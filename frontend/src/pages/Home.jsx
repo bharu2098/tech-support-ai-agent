@@ -17,17 +17,19 @@ import Footer from "../components/Footer";
 function Home() {
 
   const [history, setHistory] = useState(() => {
-    const savedHistory = localStorage.getItem(
-      "chatHistory"
-    );
+    const savedHistory =
+      localStorage.getItem("chatHistory");
+
     return savedHistory
       ? JSON.parse(savedHistory)
       : [];
   });
 
-  const [hasChat, setHasChat] = useState(false);
+  const [hasChat, setHasChat] =
+    useState(false);
 
-  const [status, setStatus] = useState("Idle");
+  const [status, setStatus] =
+    useState("Idle");
 
   const [previousIssue, setPreviousIssue] =
     useState("");
@@ -38,7 +40,8 @@ function Home() {
   const [deviceInfo, setDeviceInfo] =
     useState(null);
 
-  const [plan, setPlan] = useState([]);
+  const [plan, setPlan] =
+    useState([]);
 
   const [response, setResponse] =
     useState("");
@@ -47,20 +50,24 @@ function Home() {
 
   // Save History
   useEffect(() => {
+
     localStorage.setItem(
       "chatHistory",
       JSON.stringify(history)
     );
+
   }, [history]);
 
   // Auto Scroll
   useEffect(() => {
+
     bottomRef.current?.scrollIntoView({
       behavior: "smooth",
     });
+
   }, [response]);
 
-  // Restore Chat
+  // Restore Chat From Sidebar
   const handleHistoryClick = (chat) => {
 
     setHasChat(true);
@@ -99,9 +106,8 @@ function Home() {
 
     try {
 
-      const data = await sendMessage(
-        query
-      );
+      const data =
+        await sendMessage(query);
 
       if (data?.error) {
 
@@ -122,7 +128,8 @@ function Home() {
           data.previous_issue || "",
         deviceInfo:
           data.device_info || null,
-        plan: data.plan || [],
+        plan:
+          data.plan || [],
         response:
           data.response || "",
       };
@@ -177,7 +184,7 @@ function Home() {
     }
   };
 
-  // Clear Chat Screen
+  // Clear Current Chat
   const handleClearChat = () => {
 
     setHasChat(false);
@@ -226,6 +233,7 @@ function Home() {
 
           {hasChat && (
             <>
+
               <StatusCard
                 status={status}
               />
@@ -239,15 +247,21 @@ function Home() {
                 }
               />
 
-              <DeviceInfoCard
-                deviceInfo={
-                  deviceInfo
-                }
-              />
+              {status !== "Unsupported" &&
+                status !== "Greeting" && (
+                  <DeviceInfoCard
+                    deviceInfo={
+                      deviceInfo
+                    }
+                  />
+              )}
 
-              <PlanCard
-                plan={plan}
-              />
+              {status !== "Unsupported" &&
+                status !== "Greeting" && (
+                  <PlanCard
+                    plan={plan}
+                  />
+              )}
 
               <ResponseCard
                 response={response}
@@ -257,6 +271,7 @@ function Home() {
               <div
                 ref={bottomRef}
               ></div>
+
             </>
           )}
 
