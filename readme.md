@@ -167,15 +167,15 @@ The system uses specialized tools to support troubleshooting.
 
 ### Device Information Tool
 
-Provides device-related information.
+Provides runtime environment information used by the AI Agent.
 
-Supported Devices:
+Collected Information:
 
-* Laptop
-* Desktop
-* Mobile
-* Printer
-
+* Device Name
+* Operating System
+* Processor Information
+* RAM Capacity
+* Disk Usage Statistics
 ### Troubleshooting Tool
 
 Provides predefined troubleshooting workflows.
