@@ -6,7 +6,7 @@ function DeviceInfoCard({ deviceInfo }) {
     <div className="bg-slate-800 rounded-2xl p-6 mb-6 shadow-lg">
 
       <h2 className="text-2xl font-bold mb-4">
-        🖥 Device Information
+        🖥 Server Information
       </h2>
 
       <div className="space-y-3">
