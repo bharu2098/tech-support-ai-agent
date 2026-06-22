@@ -1,61 +1,175 @@
- # 🛠 AI Tech Support Agent
+# 🛠 AI Tech Support Agent
 
-## 📌 Project Overview
+> Intelligent Technical Troubleshooting Assistant using Planning, Memory, Tool Usage, and Google Gemini AI
 
-AI Tech Support Agent is an intelligent troubleshooting assistant developed as part of the GENAI Internship Milestone Project.
+---
 
-The agent helps users diagnose and resolve common technical issues related to:
+# 📌 Project Overview
 
-* WiFi & Network Problems
-* Printer Issues
-* Login & Password Problems
-* Bluetooth Device Connectivity
+AI Tech Support Agent is an intelligent troubleshooting assistant developed as part of the **GENAI Internship Milestone 2 Project**.
+
+The system helps users diagnose and resolve common technical support issues using:
+
+* 🧠 Planning
+* 💾 Memory
+* 🛠 Tool Usage
+* 🤖 Google Gemini AI
+
+The agent provides structured troubleshooting solutions for:
+
+* WiFi & Network Issues
+* Printer Problems
+* Login & Password Issues
+* Bluetooth Connectivity Problems
 * Outlook Email Synchronization
-* Software Installation Errors
+* Software Installation Failures
 * Slow System Performance
-
-The system uses Planning, Memory, Tool Usage, and AI-powered reasoning to provide structured technical support.
 
 ---
 
 # 🎯 Project Objectives
 
-The goal of this project is to build an AI Agent that can:
+The objective of this project is to build an AI Agent capable of:
 
-* Understand technical support queries
-* Create a troubleshooting plan
-* Use tools to gather relevant information
-* Remember previous user issues
-* Generate structured troubleshooting responses
-* Reject non-technical questions
+* Understanding technical support requests
+* Classifying user queries
+* Creating troubleshooting plans
+* Using tools to gather information
+* Maintaining conversation memory
+* Generating structured solutions
+* Rejecting unsupported non-technical questions
 
 ---
 
-# 🚀 Features
+# ✅ Milestone Requirements Coverage
 
-## ✅ Query Classification
+| Requirement        | Status      |
+| ------------------ | ----------- |
+| Planning           | ✅ Completed |
+| Memory             | ✅ Completed |
+| Tool Usage         | ✅ Completed |
+| Gemini Integration | ✅ Completed |
+| FastAPI Backend    | ✅ Completed |
+| React Frontend     | ✅ Completed |
+| SQLite Database    | ✅ Completed |
+| Deployment         | ✅ Completed |
+| GitHub Repository  | ✅ Completed |
 
-The agent classifies user input into:
+---
 
-* Greeting
-* Technical Support Query
-* Non-Technical Query
+# 🏗 System Architecture
+
+```text
+                        USER
+                          │
+                          ▼
+
+            ┌───────────────────────────┐
+            │   React + Vite Frontend   │
+            └───────────────────────────┘
+                          │
+                          ▼
+
+            ┌───────────────────────────┐
+            │      FastAPI Backend      │
+            └───────────────────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+
+ ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+ │  Planning   │   │   Memory    │   │    Tools    │
+ │   Engine    │   │   Layer     │   │    Layer    │
+ └─────────────┘   └─────────────┘   └─────────────┘
+                                           │
+                           ┌───────────────┴───────────────┐
+                           ▼                               ▼
+
+                 Device Information Tool      Troubleshooting Tool
+
+                                           │
+                                           ▼
+
+                               Google Gemini AI
+
+                                           │
+                                           ▼
+
+                              Structured Solution
+```
+
+---
+
+# 🧠 Agent Workflow
+
+```text
+1. User submits technical issue
+                    │
+                    ▼
+
+2. Query Classification
+                    │
+                    ▼
+
+3. Generate Troubleshooting Plan
+                    │
+                    ▼
+
+4. Retrieve Previous Memory
+                    │
+                    ▼
+
+5. Execute Tools
+                    │
+                    ▼
+
+6. Gemini AI Reasoning
+                    │
+                    ▼
+
+7. Generate Structured Solution
+                    │
+                    ▼
+
+8. Display Results to User
+```
+
+---
+
+# 🚀 Key Features
+
+## ✅ Intelligent Query Classification
+
+The system automatically classifies user input into:
+
+### Technical Support Queries
 
 Examples:
 
-* "My WiFi is not working"
-* "Printer is connected but not printing"
-* "I forgot my Windows password"
+* My WiFi is not working
+* Printer is connected but not printing
+* Bluetooth mouse is not connecting
+* Outlook email is not syncing
+
+### Unsupported Queries
+
+Examples:
+
+* What is the capital of India?
+* Tell me a joke
+* What is your favorite movie?
+
+The agent politely rejects unsupported questions.
 
 ---
 
 ## ✅ Planning Engine
 
-The agent generates a step-by-step execution plan.
+For every technical issue, the system generates a troubleshooting workflow.
 
-Example:
+### Example
 
-Printer Issue
+**Printer Issue**
 
 1. Check Printer Connection
 2. Verify Printer Status
@@ -66,49 +180,53 @@ Printer Issue
 
 ## ✅ Memory System
 
-The agent stores previous user issues using SQLite.
+The Memory Layer stores previous user issues using SQLite.
 
-Capabilities:
+### Capabilities
 
 * Save issue history
 * Retrieve previous issues
 * Display memory in UI
+* Maintain troubleshooting context
 
 ---
 
 ## ✅ Device Information Tool
 
-The Device Tool provides device-related information.
+Provides device-specific information.
 
-Supported Devices:
+### Supported Devices
 
 * Laptop
 * Desktop
 * Mobile
 * Printer
 
-Example:
+### Example Output
 
+```json
 {
-"device": "Laptop",
-"os": "Windows 11",
-"ram": "8GB",
-"storage": "256GB SSD"
+  "device": "Laptop",
+  "os": "Windows 11",
+  "ram": "8GB",
+  "storage": "256GB SSD"
 }
+```
 
 ---
 
-## ✅ Troubleshooting Guide Tool
+## ✅ Troubleshooting Tool
 
-The Troubleshooting Tool provides predefined troubleshooting workflows.
+Provides predefined troubleshooting workflows.
 
-Supported Categories:
+### Supported Categories
 
-* WiFi
-* Printer
-* Login Issues
-* Bluetooth
-* Email
+* WiFi Issues
+* Printer Issues
+* Login Problems
+* Password Reset
+* Bluetooth Problems
+* Outlook Synchronization
 * Software Installation
 * Performance Issues
 
@@ -116,75 +234,56 @@ Supported Categories:
 
 ## ✅ AI-Powered Troubleshooting
 
-Google Gemini AI is used to generate:
+Google Gemini AI generates:
 
 * Diagnosis
 * Troubleshooting Steps
 * Verification
-* Recommended Fix
+* Recommended Fixes
+
+### Example Response Structure
+
+```text
+Diagnosis
+
+Troubleshooting Steps
+
+Verification
+
+Recommended Fix
+```
 
 ---
 
-## ✅ Non-Technical Question Handling
+## ✅ Non-Technical Query Handling
 
-The agent rejects non-technical questions.
+### Input
 
-Example:
-
-Input:
-
+```text
 What is the capital of India?
+```
 
-Output:
+### Output
 
+```text
 I specialize in technical support only.
-
----
-
-# 🏗 System Architecture
-
-User
-↓
-Frontend (React + Vite)
-↓
-FastAPI Backend
-↓
-Planning Engine
-↓
-Tools Layer
-├── Device Tool
-├── Troubleshooting Tool
-↓
-Memory Layer (SQLite)
-↓
-Google Gemini API
-↓
-Structured Response
-
----
-
-# 🧠 Agent Workflow
-
-1. User submits technical issue
-2. Query classification performed
-3. Agent generates execution plan
-4. Device information retrieved
-5. Troubleshooting guide retrieved
-6. Previous issue fetched from memory
-7. Gemini generates structured solution
-8. Response displayed to user
+```
 
 ---
 
 # 🖥 Frontend Features
 
-* Modern Dashboard UI
+Built using React, Vite and Tailwind CSS.
+
+### Features
+
+* Responsive Dashboard
 * Sidebar Navigation
-* Recent Questions History
+* Recent Question History
 * Example Queries
 * Agent Status Indicator
 * Memory Display
-* Execution Plan Display
+* Plan Display
 * AI Response Display
 * Clear Chat Functionality
 
@@ -192,12 +291,17 @@ Structured Response
 
 # ⚙ Backend Features
 
+Built using FastAPI and SQLite.
+
+### Features
+
 * FastAPI REST API
-* SQLite Database
+* Query Classification
+* Planning Engine
 * Memory Management
-* Device Tool
-* Troubleshooting Tool
-* Gemini Integration
+* Device Tool Integration
+* Troubleshooting Tool Integration
+* Gemini AI Integration
 * Error Handling
 
 ---
@@ -214,49 +318,65 @@ Structured Response
 
 * Python
 * FastAPI
+
+## Database
+
 * SQLite
 
 ## AI
 
 * Google Gemini 2.5 Flash
 
-## Database
+## Deployment
 
-* SQLite
+* Vercel (Frontend)
+* Render (Backend)
+
+## Version Control
+
+* Git
+* GitHub
 
 ---
 
 # 📂 Project Structure
 
-techsupport-ai-agent/
+```text
+tech-support-ai-agent/
 
-backend/
+├── backend/
 │
 ├── agent.py
 ├── main.py
+├── memory.py
 ├── database.py
 ├── gemini_services.py
-├── memory.py
+├── config.py
+├── requirements.txt
 │
 ├── tools/
-│ ├── device_tool.py
-│ └── troubleshooting_tool.py
+│   ├── device_tool.py
+│   └── troubleshooting_tool.py
 │
 └── techsupport.db
 
-frontend/
+├── frontend/
 │
 ├── src/
-│ ├── components/
-│ ├── pages/
-│ ├── services/
-│ └── App.jsx
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── App.jsx
+│   └── main.jsx
+│
+└── README.md
+```
 
 ---
 
-# 🔧 Installation
+# 🔧 Local Installation
 
-## Backend
+## Backend Setup
 
 ```bash
 cd backend
@@ -266,13 +386,15 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Backend URL:
+### Backend URL
 
-```bash
+```text
 http://127.0.0.1:8000
 ```
 
-## Frontend
+---
+
+## Frontend Setup
 
 ```bash
 cd frontend
@@ -282,9 +404,9 @@ npm install
 npm run dev
 ```
 
-Frontend URL:
+### Frontend URL
 
-```bash
+```text
 http://localhost:5173
 ```
 
@@ -292,7 +414,7 @@ http://localhost:5173
 
 # 🔑 Environment Variables
 
-Create a .env file:
+Create a `.env` file inside backend:
 
 ```env
 GEMINI_API_KEY=YOUR_GEMINI_API_KEY
@@ -302,9 +424,9 @@ GEMINI_API_KEY=YOUR_GEMINI_API_KEY
 
 # 📡 API Endpoint
 
-POST /chat
+## POST /chat
 
-Request:
+### Request
 
 ```json
 {
@@ -312,12 +434,11 @@ Request:
 }
 ```
 
-Response:
+### Response
 
 ```json
 {
   "status": "Completed",
-  "category": "Technical Support",
   "plan": [
     "Check Router Status",
     "Verify Network Adapter",
@@ -332,46 +453,79 @@ Response:
 
 # 🧪 Tested Scenarios
 
-* WiFi Not Working
-* Printer Not Printing
-* Bluetooth Mouse Not Connecting
-* Outlook Email Not Syncing
-* Slow Laptop Performance
-* Windows Password Reset
-* Python Installation Failure
+Successfully Tested:
+
+* ✅ WiFi Not Working
+* ✅ Printer Not Printing
+* ✅ Bluetooth Mouse Not Connecting
+* ✅ Outlook Email Not Syncing
+* ✅ Windows Password Reset
+* ✅ Python Installation Failure
+* ✅ Slow Laptop Performance
+* ✅ Non-Technical Question Rejection
 
 ---
 
-# 📸 Screenshots
+# 📸 Project Screenshots
 
-Add screenshots here:
+## Home Page
 
-* Home Page
-* WiFi Troubleshooting
-* Printer Troubleshooting
-* Memory System
-* Agent Plan Execution
+![Home Page](screenshots/home-page.png)
+
+## WiFi Troubleshooting
+
+![WiFi Troubleshooting](screenshots/wifi-troubleshooting.png)
+
+## Memory System
+
+![Memory System](screenshots/memory-system.png)
+
+## Agent Planning
+
+![Agent Planning](screenshots/agent-planning.png)
+
+---
+
+# 📈 Project Results
+
+The AI Tech Support Agent successfully:
+
+* Diagnoses technical support issues
+* Generates troubleshooting plans
+* Maintains issue history using memory
+* Uses tools for issue analysis
+* Produces structured AI-generated responses
+* Rejects unsupported non-technical questions
+
+The project demonstrates the core AI Agent concepts of:
+
+* Planning
+* Memory
+* Tool Usage
+* LLM Integration
 
 ---
 
 # 🌐 Deployment
 
-Frontend URL:
+## Frontend (Vercel)
 
-Add deployed frontend URL here
+https://tech-support-ai-agent.vercel.app
 
-Backend URL:
+## Backend (Render)
 
-Add deployed backend URL here
+https://tech-support-ai-agent.onrender.com
+
+## GitHub Repository
+
+https://github.com/bharu2098/tech-support-ai-agent
 
 ---
 
 # 👨‍💻 Author
 
-Bhargav Doddi
+**Bhargav Doddi**
 
-GENAI Internship Project
+GENAI Internship – Milestone 2 Project
 
-AI Tech Support Agent
-
-Milestone 2 Submission
+**AI Tech Support Agent**
