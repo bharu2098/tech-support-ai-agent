@@ -58,18 +58,35 @@ def chat(data: ChatRequest):
     # Save Current Issue
     save_issue("Bhargav", user_query)
 
-    # Agent Planning
-    result = agent.process_query(user_query)
-
-    category = result["category"]
-    plan = result["plan"]
-
-    # Tool Calls
-    device_info = get_device_info(user_query)
+    # Tool Execution
+    device_info = get_device_info()
 
     troubleshooting_guide = get_troubleshooting_guide(
         user_query
     )
+
+    # Agent Planning + Decision Making
+    result = agent.process_query(
+        query=user_query,
+        previous_issue=previous_issue,
+        device_info=device_info
+    )
+
+    category = result["category"]
+    plan = result["plan"]
+
+    # Show Tool Usage in Plan
+    if category == "Technical Support":
+
+        plan.insert(
+            0,
+            "Fetch Device Information"
+        )
+
+        plan.insert(
+            1,
+            "Load Troubleshooting Guide"
+        )
 
     try:
 
@@ -81,12 +98,13 @@ Hello 👋
 I am your TechSupport AI Agent.
 
 I can help with:
+
 • Printer Issues
-• WiFi & Network Problems
+• WiFi Problems
 • Login Issues
 • Software Installation
 • Hardware Troubleshooting
-• System Performance Problems
+• Performance Problems
 
 How can I assist you today?
 """
@@ -123,14 +141,20 @@ Please ask questions related to:
         return {
             "status": result["status"],
             "category": category,
-            "memory": {
-                "previous_issue": previous_issue,
-                "current_issue": user_query
-            },
+
+            # Memory
+            "previous_issue": previous_issue,
+            "current_issue": user_query,
+
+            # Tool Results
             "device_info": device_info,
             "troubleshooting_guide": troubleshooting_guide,
+
+            # Agent
             "plan": plan,
             "response": response,
+
+            # Metrics
             "execution_time": f"{execution_time}s"
         }
 
@@ -146,13 +170,18 @@ Please ask questions related to:
         return {
             "status": "Error",
             "category": category,
-            "memory": {
-                "previous_issue": previous_issue,
-                "current_issue": user_query
-            },
+
+            "previous_issue": previous_issue,
+            "current_issue": user_query,
+
             "device_info": device_info,
             "troubleshooting_guide": troubleshooting_guide,
+
             "plan": plan,
-            "response": f"Gemini Error: {str(e)}",
+
+            "response": (
+                f"Gemini Error: {str(e)}"
+            ),
+
             "execution_time": f"{execution_time}s"
         }

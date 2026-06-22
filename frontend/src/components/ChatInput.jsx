@@ -6,10 +6,13 @@ function ChatInput({
   setHasChat,
   setStatus,
   setPreviousIssue,
+  setCurrentIssue,
+  setDeviceInfo,
   setPlan,
   setResponse,
   selectedQuery,
 }) {
+
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -44,7 +47,9 @@ function ChatInput({
       const chatData = {
         question: query,
         status: data.status || "Completed",
-        previousIssue: query,
+        previousIssue: data.previous_issue || "",
+        currentIssue: data.current_issue || query,
+        deviceInfo: data.device_info || null,
         plan: data.plan || [],
         response: data.response || "",
       };
@@ -65,7 +70,17 @@ function ChatInput({
         data.status || "Completed"
       );
 
-      setPreviousIssue(query);
+      setPreviousIssue(
+        data.previous_issue || ""
+      );
+
+      setCurrentIssue(
+        data.current_issue || query
+      );
+
+      setDeviceInfo(
+        data.device_info || null
+      );
 
       setPlan(
         data.plan || []
@@ -79,7 +94,10 @@ function ChatInput({
 
     } catch (error) {
 
-      console.error("Chat Error:", error);
+      console.error(
+        "Chat Error:",
+        error
+      );
 
       setStatus("Offline");
 

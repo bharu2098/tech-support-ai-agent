@@ -8,6 +8,7 @@ import WelcomeCard from "../components/WelcomeCard";
 import ExampleQueries from "../components/ExampleQueries";
 import StatusCard from "../components/StatusCard";
 import MemoryCard from "../components/MemoryCard";
+import DeviceInfoCard from "../components/DeviceInfoCard";
 import PlanCard from "../components/PlanCard";
 import ResponseCard from "../components/ResponseCard";
 import ChatInput from "../components/ChatInput";
@@ -16,19 +17,35 @@ import Footer from "../components/Footer";
 function Home() {
 
   const [history, setHistory] = useState(() => {
-    const savedHistory = localStorage.getItem("chatHistory");
-    return savedHistory ? JSON.parse(savedHistory) : [];
+    const savedHistory = localStorage.getItem(
+      "chatHistory"
+    );
+    return savedHistory
+      ? JSON.parse(savedHistory)
+      : [];
   });
 
   const [hasChat, setHasChat] = useState(false);
 
   const [status, setStatus] = useState("Idle");
-  const [previousIssue, setPreviousIssue] = useState("");
+
+  const [previousIssue, setPreviousIssue] =
+    useState("");
+
+  const [currentIssue, setCurrentIssue] =
+    useState("");
+
+  const [deviceInfo, setDeviceInfo] =
+    useState(null);
+
   const [plan, setPlan] = useState([]);
-  const [response, setResponse] = useState("");
+
+  const [response, setResponse] =
+    useState("");
 
   const bottomRef = useRef(null);
 
+  // Save History
   useEffect(() => {
     localStorage.setItem(
       "chatHistory",
@@ -36,12 +53,14 @@ function Home() {
     );
   }, [history]);
 
+  // Auto Scroll
   useEffect(() => {
     bottomRef.current?.scrollIntoView({
       behavior: "smooth",
     });
   }, [response]);
 
+  // Restore Chat
   const handleHistoryClick = (chat) => {
 
     setHasChat(true);
@@ -51,7 +70,15 @@ function Home() {
     );
 
     setPreviousIssue(
+      chat.previousIssue || ""
+    );
+
+    setCurrentIssue(
       chat.question || ""
+    );
+
+    setDeviceInfo(
+      chat.deviceInfo || null
     );
 
     setPlan(
@@ -63,13 +90,18 @@ function Home() {
     );
   };
 
-  const handleExampleQuery = async (query) => {
+  // Example Query Auto Send
+  const handleExampleQuery = async (
+    query
+  ) => {
 
     setStatus("Executing");
 
     try {
 
-      const data = await sendMessage(query);
+      const data = await sendMessage(
+        query
+      );
 
       if (data?.error) {
 
@@ -84,17 +116,24 @@ function Home() {
 
       const chatData = {
         question: query,
-        status: data.status || "Completed",
-        previousIssue: data.previous_issue || "",
+        status:
+          data.status || "Completed",
+        previousIssue:
+          data.previous_issue || "",
+        deviceInfo:
+          data.device_info || null,
         plan: data.plan || [],
-        response: data.response || "",
+        response:
+          data.response || "",
       };
 
       setHistory((prev) => {
 
-        const filtered = prev.filter(
-          (item) => item.question !== query
-        );
+        const filtered =
+          prev.filter(
+            (item) =>
+              item.question !== query
+          );
 
         return [
           chatData,
@@ -106,7 +145,17 @@ function Home() {
         data.status || "Completed"
       );
 
-      setPreviousIssue(query);
+      setPreviousIssue(
+        data.previous_issue || ""
+      );
+
+      setCurrentIssue(
+        data.current_issue || query
+      );
+
+      setDeviceInfo(
+        data.device_info || null
+      );
 
       setPlan(
         data.plan || []
@@ -128,13 +177,21 @@ function Home() {
     }
   };
 
+  // Clear Chat Screen
   const handleClearChat = () => {
 
     setHasChat(false);
 
     setStatus("Idle");
+
     setPreviousIssue("");
+
+    setCurrentIssue("");
+
+    setDeviceInfo(null);
+
     setPlan([]);
+
     setResponse("");
   };
 
@@ -143,8 +200,12 @@ function Home() {
 
       <Sidebar
         history={history}
-        onHistoryClick={handleHistoryClick}
-        onClearChat={handleClearChat}
+        onHistoryClick={
+          handleHistoryClick
+        }
+        onClearChat={
+          handleClearChat
+        }
       />
 
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -157,7 +218,9 @@ function Home() {
 
           {!hasChat && (
             <ExampleQueries
-              onSelectQuery={handleExampleQuery}
+              onSelectQuery={
+                handleExampleQuery
+              }
             />
           )}
 
@@ -168,7 +231,18 @@ function Home() {
               />
 
               <MemoryCard
-                previousIssue={previousIssue}
+                previousIssue={
+                  previousIssue
+                }
+                currentIssue={
+                  currentIssue
+                }
+              />
+
+              <DeviceInfoCard
+                deviceInfo={
+                  deviceInfo
+                }
               />
 
               <PlanCard
@@ -180,7 +254,9 @@ function Home() {
                 status={status}
               />
 
-              <div ref={bottomRef}></div>
+              <div
+                ref={bottomRef}
+              ></div>
             </>
           )}
 
@@ -190,9 +266,19 @@ function Home() {
           setHistory={setHistory}
           setHasChat={setHasChat}
           setStatus={setStatus}
-          setPreviousIssue={setPreviousIssue}
+          setPreviousIssue={
+            setPreviousIssue
+          }
+          setCurrentIssue={
+            setCurrentIssue
+          }
+          setDeviceInfo={
+            setDeviceInfo
+          }
           setPlan={setPlan}
-          setResponse={setResponse}
+          setResponse={
+            setResponse
+          }
         />
 
         <Footer />

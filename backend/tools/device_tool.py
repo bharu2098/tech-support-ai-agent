@@ -1,40 +1,17 @@
-def get_device_info(query):
+import platform
+import psutil
 
-    query = query.lower()
 
-    if any(word in query for word in ["laptop", "windows"]):
-        return {
-            "device": "Laptop",
-            "os": "Windows 11",
-            "ram": "8GB",
-            "storage": "256GB SSD"
-        }
-
-    elif any(word in query for word in ["desktop", "computer"]):
-        return {
-            "device": "Desktop",
-            "os": "Windows 10",
-            "ram": "16GB",
-            "storage": "512GB SSD"
-        }
-
-    elif any(word in query for word in ["mobile", "phone", "android"]):
-        return {
-            "device": "Mobile",
-            "os": "Android 14",
-            "ram": "8GB",
-            "storage": "128GB"
-        }
-
-    elif "printer" in query:
-        return {
-            "device": "Printer",
-            "status": "Connected"
-        }
+def get_device_info():
 
     return {
-        "device": "Unknown",
-        "os": "Unknown",
-        "ram": "Unknown",
-        "storage": "Unknown"
+        "device_name": platform.node(),
+        "os": platform.system(),
+        "os_version": platform.release(),
+        "processor": platform.processor(),
+        "ram_gb": round(
+            psutil.virtual_memory().total / (1024 ** 3),
+            2
+        ),
+        "disk_usage_percent": psutil.disk_usage("/").percent
     }

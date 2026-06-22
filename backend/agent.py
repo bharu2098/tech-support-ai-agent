@@ -62,10 +62,16 @@ class TechSupportAgent:
 
         query = query.lower().strip()
 
-        if any(greeting in query for greeting in self.greetings):
+        if any(
+            greeting in query
+            for greeting in self.greetings
+        ):
             return "greeting"
 
-        if any(keyword in query for keyword in self.technical_keywords):
+        if any(
+            keyword in query
+            for keyword in self.technical_keywords
+        ):
             return "technical"
 
         return "unsupported"
@@ -74,7 +80,10 @@ class TechSupportAgent:
 
         query = query.lower()
 
-        if any(word in query for word in ["printer", "print"]):
+        if any(
+            word in query
+            for word in ["printer", "print"]
+        ):
             return [
                 "Check Printer Connection",
                 "Verify Printer Status",
@@ -82,7 +91,15 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["wifi", "internet", "network", "router"]):
+        elif any(
+            word in query
+            for word in [
+                "wifi",
+                "internet",
+                "network",
+                "router"
+            ]
+        ):
             return [
                 "Check Router Status",
                 "Verify Network Adapter",
@@ -90,7 +107,14 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["email", "outlook", "mail"]):
+        elif any(
+            word in query
+            for word in [
+                "email",
+                "outlook",
+                "mail"
+            ]
+        ):
             return [
                 "Check Account Settings",
                 "Verify Internet Connection",
@@ -98,7 +122,14 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["slow", "lag", "performance"]):
+        elif any(
+            word in query
+            for word in [
+                "slow",
+                "lag",
+                "performance"
+            ]
+        ):
             return [
                 "Check System Performance",
                 "Inspect Startup Applications",
@@ -106,7 +137,14 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["login", "password", "signin"]):
+        elif any(
+            word in query
+            for word in [
+                "login",
+                "password",
+                "signin"
+            ]
+        ):
             return [
                 "Verify Credentials",
                 "Check Account Status",
@@ -114,7 +152,14 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["software", "install", "update"]):
+        elif any(
+            word in query
+            for word in [
+                "software",
+                "install",
+                "update"
+            ]
+        ):
             return [
                 "Inspect Software Configuration",
                 "Check Installation Logs",
@@ -122,7 +167,14 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["hardware", "computer", "laptop"]):
+        elif any(
+            word in query
+            for word in [
+                "hardware",
+                "computer",
+                "laptop"
+            ]
+        ):
             return [
                 "Inspect Hardware Components",
                 "Run Diagnostic Checks",
@@ -130,7 +182,14 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["bluetooth", "keyboard", "mouse"]):
+        elif any(
+            word in query
+            for word in [
+                "bluetooth",
+                "keyboard",
+                "mouse"
+            ]
+        ):
             return [
                 "Verify Device Connectivity",
                 "Inspect Device Drivers",
@@ -138,7 +197,13 @@ class TechSupportAgent:
                 "Recommend Fix"
             ]
 
-        elif any(word in query for word in ["server", "database"]):
+        elif any(
+            word in query
+            for word in [
+                "server",
+                "database"
+            ]
+        ):
             return [
                 "Inspect Service Status",
                 "Verify Connectivity",
@@ -153,11 +218,17 @@ class TechSupportAgent:
             "Recommend Fix"
         ]
 
-    def process_query(self, query):
+    def process_query(
+        self,
+        query,
+        previous_issue=None,
+        device_info=None
+    ):
 
         query_type = self.classify_query(query)
 
         if query_type == "greeting":
+
             return {
                 "status": "Greeting",
                 "category": "Greeting",
@@ -167,6 +238,7 @@ class TechSupportAgent:
             }
 
         if query_type == "unsupported":
+
             return {
                 "status": "Unsupported",
                 "category": "Non-Technical",
@@ -177,6 +249,39 @@ class TechSupportAgent:
 
         plan = self.create_plan(query)
 
+        # Memory-based decision making
+        if (
+            previous_issue and
+            previous_issue.lower() == query.lower()
+        ):
+            plan.insert(
+                0,
+                "Analyze Repeated Issue"
+            )
+
+        # Device-based decision making
+        if device_info:
+
+            ram = device_info.get(
+                "ram_gb",
+                0
+            )
+
+            disk = device_info.get(
+                "disk_usage_percent",
+                0
+            )
+
+            if ram < 8:
+                plan.append(
+                    "Recommend RAM Upgrade"
+                )
+
+            if disk > 90:
+                plan.append(
+                    "Recommend Disk Cleanup"
+                )
+
         return {
             "status": "Completed",
             "category": "Technical Support",
@@ -186,5 +291,5 @@ class TechSupportAgent:
         }
 
 
-# Create singleton instance
+# Singleton Instance
 agent = TechSupportAgent()
