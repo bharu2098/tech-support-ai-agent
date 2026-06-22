@@ -8,35 +8,30 @@
 
 AI Tech Support Agent is an intelligent troubleshooting assistant developed as part of the **GENAI Internship Milestone 2 Project**.
 
-The system helps users diagnose and resolve common technical support issues using:
+The system assists users in diagnosing and resolving common technical support issues through AI-driven reasoning, structured planning, memory management, and tool-based troubleshooting.
 
-* 🧠 Planning
-* 💾 Memory
-* 🛠 Tool Usage
-* 🤖 Google Gemini AI
+### Supported Issue Categories
 
-The agent provides structured troubleshooting solutions for:
-
-* WiFi & Network Issues
-* Printer Problems
-* Login & Password Issues
-* Bluetooth Connectivity Problems
-* Outlook Email Synchronization
-* Software Installation Failures
-* Slow System Performance
+* 🌐 WiFi & Network Issues
+* 🖨 Printer Problems
+* 🔐 Login & Password Issues
+* 🎧 Bluetooth Connectivity Problems
+* 📧 Outlook Email Synchronization
+* 💻 Software Installation Failures
+* ⚡ Slow System Performance
 
 ---
 
 # 🎯 Project Objectives
 
-The objective of this project is to build an AI Agent capable of:
+The primary objective of this project is to build an AI Agent capable of:
 
 * Understanding technical support requests
 * Classifying user queries
-* Creating troubleshooting plans
-* Using tools to gather information
+* Generating troubleshooting plans
+* Using tools to gather relevant information
 * Maintaining conversation memory
-* Generating structured solutions
+* Producing structured troubleshooting responses
 * Rejecting unsupported non-technical questions
 
 ---
@@ -136,6 +131,88 @@ The objective of this project is to build an AI Agent capable of:
 
 ---
 
+# 🚀 Core AI Agent Components
+
+## 🧠 Planning Engine
+
+The Planning Engine creates a troubleshooting workflow before generating a solution.
+
+### Example
+
+Printer Issue:
+
+1. Check Printer Connection
+2. Verify Printer Status
+3. Inspect Printer Drivers
+4. Recommend Fix
+
+---
+
+## 💾 Memory Layer
+
+The Memory Layer stores previous user issues using SQLite.
+
+### Capabilities
+
+* Save issue history
+* Retrieve previous issues
+* Maintain troubleshooting context
+* Display memory information in the UI
+
+---
+
+## 🛠 Tool Layer
+
+The system uses specialized tools to support troubleshooting.
+
+### Device Information Tool
+
+Provides device-related information.
+
+Supported Devices:
+
+* Laptop
+* Desktop
+* Mobile
+* Printer
+
+### Troubleshooting Tool
+
+Provides predefined troubleshooting workflows.
+
+Supported Categories:
+
+* WiFi Issues
+* Printer Issues
+* Login Problems
+* Password Reset
+* Bluetooth Problems
+* Outlook Synchronization
+* Software Installation
+* Performance Issues
+
+---
+
+## 🤖 Reasoning Layer (Gemini AI)
+
+Google Gemini AI combines:
+
+* User Query
+* Agent Plan
+* Memory Context
+* Tool Outputs
+
+to generate structured troubleshooting responses.
+
+Generated Response Sections:
+
+* Diagnosis
+* Troubleshooting Steps
+* Verification
+* Recommended Fix
+
+---
+
 # 🚀 Key Features
 
 ## ✅ Intelligent Query Classification
@@ -160,98 +237,6 @@ Examples:
 * What is your favorite movie?
 
 The agent politely rejects unsupported questions.
-
----
-
-## ✅ Planning Engine
-
-For every technical issue, the system generates a troubleshooting workflow.
-
-### Example
-
-**Printer Issue**
-
-1. Check Printer Connection
-2. Verify Printer Status
-3. Inspect Printer Drivers
-4. Recommend Fix
-
----
-
-## ✅ Memory System
-
-The Memory Layer stores previous user issues using SQLite.
-
-### Capabilities
-
-* Save issue history
-* Retrieve previous issues
-* Display memory in UI
-* Maintain troubleshooting context
-
----
-
-## ✅ Device Information Tool
-
-Provides device-specific information.
-
-### Supported Devices
-
-* Laptop
-* Desktop
-* Mobile
-* Printer
-
-### Example Output
-
-```json
-{
-  "device": "Laptop",
-  "os": "Windows 11",
-  "ram": "8GB",
-  "storage": "256GB SSD"
-}
-```
-
----
-
-## ✅ Troubleshooting Tool
-
-Provides predefined troubleshooting workflows.
-
-### Supported Categories
-
-* WiFi Issues
-* Printer Issues
-* Login Problems
-* Password Reset
-* Bluetooth Problems
-* Outlook Synchronization
-* Software Installation
-* Performance Issues
-
----
-
-## ✅ AI-Powered Troubleshooting
-
-Google Gemini AI generates:
-
-* Diagnosis
-* Troubleshooting Steps
-* Verification
-* Recommended Fixes
-
-### Example Response Structure
-
-```text
-Diagnosis
-
-Troubleshooting Steps
-
-Verification
-
-Recommended Fix
-```
 
 ---
 
@@ -281,7 +266,7 @@ Built using React, Vite and Tailwind CSS.
 * Sidebar Navigation
 * Recent Question History
 * Example Queries
-* Agent Status Indicator
+* Agent Status Display
 * Memory Display
 * Plan Display
 * AI Response Display
@@ -323,7 +308,7 @@ Built using FastAPI and SQLite.
 
 * SQLite
 
-## AI
+## AI Model
 
 * Google Gemini 2.5 Flash
 
@@ -345,29 +330,33 @@ Built using FastAPI and SQLite.
 tech-support-ai-agent/
 
 ├── backend/
+│   ├── agent.py
+│   ├── main.py
+│   ├── memory.py
+│   ├── database.py
+│   ├── gemini_services.py
+│   ├── config.py
+│   ├── requirements.txt
+│   │
+│   ├── tools/
+│   │   ├── device_tool.py
+│   │   └── troubleshooting_tool.py
+│   │
+│   └── techsupport.db
 │
-├── agent.py
-├── main.py
-├── memory.py
-├── database.py
-├── gemini_services.py
-├── config.py
-├── requirements.txt
-│
-├── tools/
-│   ├── device_tool.py
-│   └── troubleshooting_tool.py
-│
-└── techsupport.db
-
 ├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── App.jsx
+│   │   └── main.jsx
 │
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   ├── App.jsx
-│   └── main.jsx
+├── screenshots/
+│   ├── home-page.png
+│   ├── agent-status.png
+│   ├── agent-execution-plan.png
+│   └── ai-response.png
 │
 └── README.md
 ```
@@ -414,7 +403,7 @@ http://localhost:5173
 
 # 🔑 Environment Variables
 
-Create a `.env` file inside backend:
+Create a `.env` file inside the backend folder:
 
 ```env
 GEMINI_API_KEY=YOUR_GEMINI_API_KEY
@@ -468,21 +457,23 @@ Successfully Tested:
 
 # 📸 Project Screenshots
 
+The following screenshots demonstrate the user interface and core AI Agent functionalities.
+
 ## Home Page
 
 ![Home Page](screenshots/home-page.png)
 
-## WiFi Troubleshooting
+## Agent Status
 
-![WiFi Troubleshooting](screenshots/wifi-troubleshooting.png)
+![Agent Status](screenshots/agent-status.png)
 
-## Memory System
+## Agent Execution Plan
 
-![Memory System](screenshots/memory-system.png)
+![Agent Execution Plan](screenshots/agent-execution-plan.png)
 
-## Agent Planning
+## AI Response
 
-![Agent Planning](screenshots/agent-planning.png)
+![AI Response](screenshots/ai-response.png)
 
 ---
 
@@ -492,31 +483,32 @@ The AI Tech Support Agent successfully:
 
 * Diagnoses technical support issues
 * Generates troubleshooting plans
-* Maintains issue history using memory
+* Maintains issue history through memory
 * Uses tools for issue analysis
 * Produces structured AI-generated responses
-* Rejects unsupported non-technical questions
+* Rejects unsupported non-technical queries
 
-The project demonstrates the core AI Agent concepts of:
+This project demonstrates the core AI Agent concepts of:
 
 * Planning
 * Memory
 * Tool Usage
 * LLM Integration
+* Decision Making
 
 ---
 
-# 🌐 Deployment
+# 🚀 Project Deployment
 
-## Frontend (Vercel)
+## Frontend Application
 
 https://tech-support-ai-agent.vercel.app
 
-## Backend (Render)
+## Backend API
 
 https://tech-support-ai-agent.onrender.com
 
-## GitHub Repository
+## Source Code Repository
 
 https://github.com/bharu2098/tech-support-ai-agent
 
