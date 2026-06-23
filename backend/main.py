@@ -29,6 +29,7 @@ agent = TechSupportAgent()
 
 class ChatRequest(BaseModel):
     message: str
+    device_info: dict | None = None
 
 
 @app.get("/")
@@ -58,9 +59,37 @@ def chat(data: ChatRequest):
     # Save Current Issue
     save_issue("Bhargav", user_query)
 
-    # Tool Execution
-    device_info = get_device_info()
+    # Device Information
+    if data.device_info:
 
+        print("DEVICE INFO RECEIVED:")
+        print(data.device_info)
+
+        device_info = {
+            "device_name": "User Browser",
+            "os": data.device_info.get(
+                "platform",
+                "Unknown"
+            ),
+            "os_version": "",
+            "processor": f"{data.device_info.get('cpuCores', 'Unknown')} Cores",
+            "ram_gb": 0,
+            "disk_usage_percent": 0,
+            "language": data.device_info.get(
+                "language",
+                "Unknown"
+            ),
+            "userAgent": data.device_info.get(
+                "userAgent",
+                "Unknown"
+            )
+        }
+
+    else:
+
+        device_info = get_device_info()
+
+    # Troubleshooting Tool
     troubleshooting_guide = get_troubleshooting_guide(
         user_query
     )
@@ -142,19 +171,15 @@ Please ask questions related to:
             "status": result["status"],
             "category": category,
 
-            # Memory
             "previous_issue": previous_issue,
             "current_issue": user_query,
 
-            # Tool Results
             "device_info": device_info,
             "troubleshooting_guide": troubleshooting_guide,
 
-            # Agent
             "plan": plan,
             "response": response,
 
-            # Metrics
             "execution_time": f"{execution_time}s"
         }
 
@@ -179,9 +204,7 @@ Please ask questions related to:
 
             "plan": plan,
 
-            "response": (
-                f"Gemini Error: {str(e)}"
-            ),
+            "response": f"Gemini Error: {str(e)}",
 
             "execution_time": f"{execution_time}s"
         }

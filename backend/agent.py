@@ -272,7 +272,17 @@ class TechSupportAgent:
                 0
             )
 
-            if ram < 8:
+            try:
+                ram = float(ram)
+            except Exception:
+                ram = 0
+
+            try:
+                disk = float(disk)
+            except Exception:
+                disk = 0
+
+            if ram > 0 and ram < 8:
                 plan.append(
                     "Recommend RAM Upgrade"
                 )

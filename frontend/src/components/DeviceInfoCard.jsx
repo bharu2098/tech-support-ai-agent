@@ -6,45 +6,44 @@ function DeviceInfoCard({ deviceInfo }) {
     <div className="bg-slate-800 rounded-2xl p-6 mb-6 shadow-lg">
 
       <h2 className="text-2xl font-bold mb-4">
-        🖥 Server Information
+        🖥 User Device Information
       </h2>
 
       <div className="space-y-3">
 
         <div className="bg-slate-700 rounded-xl p-3">
           <span className="font-semibold">
-            Device Name:
+            Device:
           </span>{" "}
           {deviceInfo.device_name || "Unknown"}
         </div>
 
         <div className="bg-slate-700 rounded-xl p-3">
           <span className="font-semibold">
-            Operating System:
+            Platform:
           </span>{" "}
-          {deviceInfo.os || "Unknown"}{" "}
-          {deviceInfo.os_version || ""}
+          {deviceInfo.os || "Unknown"}
         </div>
 
         <div className="bg-slate-700 rounded-xl p-3">
           <span className="font-semibold">
-            Processor:
+            CPU:
           </span>{" "}
           {deviceInfo.processor || "Unknown"}
         </div>
 
         <div className="bg-slate-700 rounded-xl p-3">
           <span className="font-semibold">
-            RAM:
+            Language:
           </span>{" "}
-          {deviceInfo.ram_gb || "Unknown"} GB
+          {deviceInfo.language || "Unknown"}
         </div>
 
-        <div className="bg-slate-700 rounded-xl p-3">
+        <div className="bg-slate-700 rounded-xl p-3 wbreak-words">
           <span className="font-semibold">
-            Disk Usage:
+            User Agent:
           </span>{" "}
-          {deviceInfo.disk_usage_percent || "Unknown"}%
+          {deviceInfo.userAgent || "Unknown"}
         </div>
 
       </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { sendMessage } from "../services/api";
+import { getBrowserDeviceInfo } from "../utils/deviceInfo";
 
 function ChatInput({
   setHistory,
@@ -31,7 +32,23 @@ function ChatInput({
 
     try {
 
-      const data = await sendMessage(query);
+      const browserDeviceInfo =
+        getBrowserDeviceInfo();
+
+      console.log(
+        "Browser Device Info:",
+        browserDeviceInfo
+      );
+
+      const data = await sendMessage(
+        query,
+        browserDeviceInfo
+      );
+
+      console.log(
+        "Backend Response:",
+        data
+      );
 
       if (data?.error) {
 
@@ -47,17 +64,22 @@ function ChatInput({
       const chatData = {
         question: query,
         status: data.status || "Completed",
-        previousIssue: data.previous_issue || "",
-        currentIssue: data.current_issue || query,
-        deviceInfo: data.device_info || null,
+        previousIssue:
+          data.previous_issue || "",
+        currentIssue:
+          data.current_issue || query,
+        deviceInfo:
+          data.device_info || null,
         plan: data.plan || [],
-        response: data.response || "",
+        response:
+          data.response || "",
       };
 
       setHistory((prev) => {
 
         const filtered = prev.filter(
-          (item) => item.question !== query
+          (item) =>
+            item.question !== query
         );
 
         return [
