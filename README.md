@@ -13,7 +13,6 @@ The system assists users in diagnosing and resolving common technical support is
 *  Slow System Performance
  Project Objectives
 The primary objective of this project is to build an AI Agent capable of:
-
 * Understanding technical support requests
 * Classifying user queries
 * Generating troubleshooting plans
@@ -21,6 +20,7 @@ The primary objective of this project is to build an AI Agent capable of:
 * Maintaining conversation memory
 * Producing structured troubleshooting responses
 * Rejecting unsupported non-technical questions
+
  Milestone Requirements Coverage
 
 | Requirement        | Status      |
@@ -74,6 +74,7 @@ The primary objective of this project is to build an AI Agent capable of:
 
                               Structured Solution
 
+
   Agent Workflow
 
 ```text
@@ -106,6 +107,7 @@ The primary objective of this project is to build an AI Agent capable of:
                     ▼
 
 8. Display Results to User
+
  Core AI Agent Components
  Planning Engine
 
@@ -171,7 +173,7 @@ Examples:
 * Tell me a joke
 * What is your favorite movie?
 The agent politely rejects unsupported questions.
- Non-Technical Query Handlin
+ Non-Technical Query Handling
  Input
 What is the capital of India?
 Output
@@ -250,23 +252,23 @@ tech-support-ai-agent/
 │   └── ai-response.png
 │
 └── README.m
- Local Installatio
+ Local Installation
  Backend Setup
 cd backen
 pip install -r requirements.txt
 uvicorn main:app --reloa
  Backend URL
 http://127.0.0.1:800
-Frontend Setu
+Frontend Setup
 cd frontend
 npm instal
 npm run de
  Frontend URL
-http://localhost:517
+http://localhost:5173
  Environment Variable
 Create a `.env` file inside the backend folder
-GEMINI_API_KEY=YOUR_GEMINI_API_K
- API Endpoin
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+ API Endpoint
  POST /chat
 Request
 {
@@ -325,7 +327,7 @@ https://tech-support-ai-agent.onrender.com
  Source Code Repositor
 https://github.com/bharu2098/tech-support-ai-agent 
 Author
-Bhargav Dodd
+Bhargav Doddi
 GENAI Internship – Milestone 2 Project
 AI Tech Support Agent
 
